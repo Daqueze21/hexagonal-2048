@@ -1,9 +1,10 @@
 import React from 'react';
 
-export default function Hex({size, inside, cell}) {
+export default function Hex({ size, inside, cell, translateX, translateY }) {
    let styles = {
       width: size,
       height: size,
+      transform: `translate(${translateX}px, ${translateY}px)`,
    };
    
    return (
@@ -14,10 +15,8 @@ export default function Hex({size, inside, cell}) {
          data-y={cell.y}
          data-z={cell.z}
          data-value={cell.value}>
-         <div
-            className='insideRadius'
-            style={{ width: inside, height: inside }}>
-            
+         <div className='insideRadius' style={{ width: inside, height: inside }}>
+            {cell.x}, {cell.y}, {cell.z}
          </div>
       </div>
    );
