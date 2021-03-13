@@ -71,7 +71,7 @@
     flex-direction: column;
     justify-content: center;
   }
-  
+
   //hexGrid
   .hexGrid-wrapper {
     height: 400px;
@@ -83,16 +83,38 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .hexagon {
+      position: absolute;
+      display: inline-flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+      flex-wrap: wrap;
+      background: url(./img/hex.svg) center center no-repeat;
+    }
+
+    .insideRadius {
+      border-radius: 50%;
+      border: 2px solid blue;
+      display: inline-flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+    }
   }
   //hexGrid end
-  /* main */
+  /* main end*/
 
   /* footer */
   .footer {
     margin-top: 20px;
+    
     .status{
-    margin: 10px 0;
-  }
+      margin: 10px 0;
+    }
   }
 
   

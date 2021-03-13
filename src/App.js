@@ -19,7 +19,11 @@ export default class App extends Component {
 
   handleHeaderButtonsClick(radiusNumber) {
     console.log(radiusNumber);
-    this.setState({cells: []})
+    this.setState({
+      cells: [
+        {x: 0, y: 1, z: -1, value: 2},
+      ],
+    });
 
   }
 
