@@ -13,7 +13,7 @@ function HexGrid(props) {
    let translateX = 0;
    let translateY = 0;
 
-   console.log(props.cells);
+   // console.log(props.cells);
 
 
    return (

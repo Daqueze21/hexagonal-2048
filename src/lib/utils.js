@@ -34,4 +34,97 @@ export const populateGridWithNewValues = (existingCells, updatedCells) => {
 
 //TODO: keydown handler
 //TODO: handle move => calculate new values(evaluete is still playing..) => send new grid values to BE => redraw with BE values
+
+//group gridMap by direction
+const getDirectionLines = (cells, axis) => {
+   const lines = {};
+
+   cells.forEach((cell) => {
+      // const currentAxisValue = cell[axis];
+      lines[cell[axis]] = lines[cell[axis]]
+         ? [...lines[cell[axis]], cell]
+         : [cell];
+   });
+
+   return lines;
+};
+
+export const evaluateMove = (cells, axis, isMainDirection, sortByAxis) => {
+   const lineMap = getDirectionLines(cells, axis);
+   // console.log(axis, lineMap);
+   return Object.values(lineMap)
+      .map((line) => evaluateNewLineValueSize(line, isMainDirection, sortByAxis))
+      .reduce((acc, current) => acc.concat(current), []);
+};
+
+const evaluateNewLineValueSize = (line, reversedDirection, axisForSort) => {
+   let lineCopy = JSON.parse(JSON.stringify(line)).sort(
+      (a, b) => a[axisForSort] - b[axisForSort]
+   );
+
+   // console.log('lineCopy', lineCopy);
+   //remove 0
+   let numbers = [];
+   lineCopy.forEach((num) => {
+      if (num.value) numbers.push(num.value);
+   });
+
+   let sumNeighbors, updatedLine;
+
+   // sum naighbors and change values
+   if (reversedDirection) {
+      sumNeighbors = numbers.reverse().reduce(reducer, []);
+
+      updatedLine = lineCopy.map((obj, i, arr) => {
+         if (!sumNeighbors[arr.length - 1 - i]) {
+         obj.value = 0;
+         } else {
+         obj.value = sumNeighbors[arr.length - 1 - i];
+         }
+         return obj;
+      });
+      // console.log(updatedLine);
+   } else {
+      sumNeighbors = numbers.reduce(reducer, []);
+
+      updatedLine = lineCopy.map((obj, i) => {
+         if (sumNeighbors[i]) {
+         obj.value = sumNeighbors[i];
+         } else {
+         obj.value = 0;
+         }
+         return obj;
+      });
+   }
+
+   return updatedLine;
+};
+
+const reducer = (acc, value, i, source) => {
+   acc[acc.length - 1] === value && source[i - 1] === value
+      ? (acc[acc.length - 1] = value * 2)
+      : acc.push(value);
+   return acc;
+};
+
+
+export const calculateLocalChanges = (cells, keyCode) => {
+   switch (keyCode) {
+      case 81: //up left q
+         return evaluateMove(cells, 'z', false, 'x');
+      case 87: //up w
+         return evaluateMove(cells, 'x', true, 'y');
+      case 69: //up rigth e
+         return evaluateMove(cells, 'y', true, 'x');
+      case 65: //down left a
+         return evaluateMove(cells, 'y', false, 'x');
+      case 83: //down s
+         return evaluateMove(cells, 'x', false, 'y');
+      case 68: //down right d
+         return evaluateMove(cells, 'z', true, 'x');
+      default:
+         break;
+   }
+};
+
 //TODO: add score counter
