@@ -1,0 +1,103 @@
+.App {
+  width: 450px;
+  text-align: center;
+
+  /* header */
+  .header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .title {
+      font-size: 50px;
+      margin: 0;
+    }
+    .buttons-wrapper{
+      display: flex;
+      justify-content:center;
+      align-items: center;
+
+      button {
+        height: 20px;
+        margin: 0 10px;
+        background: #222;
+        min-width: 30px;
+        border: none;
+        border-radius: 6px;
+        color: #eee;
+        font-size: 15px;
+        transition: 1s;
+        -webkit-tap-highlight-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+
+    .score-container {
+      position: relative;
+      background: #bbada0;
+      padding: 15px 25px;
+      font-size: 25px;
+      height: 25px;
+      line-height: 47px;
+      font-weight: bold;
+      border-radius: 3px;
+      color: white;
+      margin-top: 8px;
+
+      &:after {
+        position: absolute;
+        width: 100%;
+        top: 10px;
+        left: 0;
+        content: "Score";
+        text-transform: uppercase;
+        font-size: 13px;
+        line-height: 13px;
+        text-align: center;
+        color: #eee4da;
+      }
+    }
+  }
+    /* header-end */
+  
+  /* main */
+  .previewBlock{
+    height: 400px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  //hexGrid
+  .hexGrid-wrapper {
+    height: 400px;
+    position: relative;
+    background: #fff;
+    border-radius: 6px;
+    margin-top: 40px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  //hexGrid end
+  /* main */
+
+  /* footer */
+  .footer {
+    margin-top: 20px;
+    .status{
+    margin: 10px 0;
+  }
+  }
+
+  
+
+  /* footer-end */
+  
+}
+
