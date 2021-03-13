@@ -4,7 +4,7 @@ import Hexagon from './Hexagon';
 function HexGrid(props) {
    let outsideRadius = 32;
    if (props.gridSize === 2) {
-     outsideRadius  *= 2;
+     outsideRadius  *= 2.3;
    } else if (props.gridSize === 3) {
      outsideRadius  *= 1.5;
    }

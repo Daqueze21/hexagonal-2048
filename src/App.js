@@ -3,8 +3,10 @@ import './App.scss';
 import Header from './components/Header';
 import HexGrid from './components/HexGrid';
 import Footer from './components/Footer';
+import { getCellsWithValues } from './api';
 import {
   generateHexagonMapByRadius,
+  populateGridWithNewValues,
 } from './lib/utils';
 
 export default class App extends Component {
@@ -24,13 +26,16 @@ export default class App extends Component {
     this.initGame(radiusNumber);
   }
 
-  initGame(radius) {
-    const hexMap = generateHexagonMapByRadius(radius-1);
-    console.log(hexMap);
+  async initGame(radius) {
+    const cellsWithValues = await getCellsWithValues(radius, []);
+    const updatedCells = populateGridWithNewValues(
+      generateHexagonMapByRadius(radius-1),
+      cellsWithValues
+    );
 
-    this.setState((state) => ({
+    this.setState(() => ({
       score: 0,
-      cells: hexMap,
+      cells: updatedCells,
       gridSize: radius,
       loading: false,
       status: 'playing',

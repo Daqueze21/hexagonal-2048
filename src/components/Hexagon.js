@@ -16,7 +16,7 @@ export default function Hex({ size, inside, cell, translateX, translateY }) {
          data-z={cell.z}
          data-value={cell.value}>
          <div className='insideRadius' style={{ width: inside, height: inside }}>
-            {cell.x}, {cell.y}, {cell.z}
+            {cell.value}
          </div>
       </div>
    );
