@@ -32,6 +32,16 @@ export const populateGridWithNewValues = (existingCells, updatedCells) => {
    })
 };
 
+export const isEqualArrays = (arr1, arr2) => {
+   if (arr1.length !== arr2.length) {
+      return false;
+   }
+   const toStr = ({ x, y, z, value }) => `${x}-${y}-${z}-${value}`;
+   const a1 = Array.from(arr1, toStr);
+   const a2 = Array.from(arr2, toStr);
+   return a1.every((item) => a2.includes(item));
+};
+
 //TODO: keydown handler
 //TODO: handle move => calculate new values(evaluete is still playing..) => send new grid values to BE => redraw with BE values
 

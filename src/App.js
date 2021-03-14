@@ -8,6 +8,7 @@ import {
   generateHexagonMapByRadius,
   populateGridWithNewValues,
   calculateLocalChanges,
+  isEqualArrays,
 } from './lib/utils';
 
 export default class App extends Component {
@@ -58,38 +59,37 @@ export default class App extends Component {
     if (loading) {
       return;
     };
+    
     //keyboard logic
     const localUpdatedCells = calculateLocalChanges(cells, keyCode);
-
     if (!localUpdatedCells) {
       return;
     }else if (
-      JSON.stringify(localUpdatedCells) === JSON.stringify(cells) &&
-      status === 'playing'
+      isEqualArrays(cells, localUpdatedCells)
     ) {
       return;
     } else {
       this.setState({ cells: localUpdatedCells, loading: true });
 
-      const filteredCells = cells.filter((cell) => cell.value !== 0);
-      // TODO: game over logic not ready
-
       try {
+        // const filteredCells = cells.filter((cell) => cell.value !== 0);
+        const filteredCells = localUpdatedCells.filter(
+          (cell) => cell.value !== 0
+        );
+        // TODO: game over logic not ready
+
         const cellsWithValues = await getCellsWithValues(
           this.state.gridSize,
           filteredCells
         );
-
+        //
         const updatedCells = populateGridWithNewValues(
           localUpdatedCells,
           cellsWithValues
         );
-        console.log('cells', cellsWithValues);
-          // 
-        if (
-          cellsWithValues.length === 0 &&
-          JSON.stringify(localUpdatedCells) === JSON.stringify(cells)
-        ) {
+        console.log('cells', cellsWithValues.length);
+
+        if (cellsWithValues.length === 0) {
           this.setState({
             cells: updatedCells,
             loading: false,
@@ -107,18 +107,17 @@ export default class App extends Component {
   }
 
   render() {
-    const { score, cells, status, gridSize } = this.state;
+    const { score, cells, status, gridSize, loading} = this.state;
     return (
       <div className='App'>
         <Header score={score} handleClick={this.handleHeaderButtonsClick} />
-        
         {!cells ? (
           <div className='previewBlock'>
             <h1>Hexagonal 2048</h1>
             <h4>Push button with number to start the game</h4>
           </div>
         ) : (
-          <HexGrid cells={cells} gridSize={gridSize} />
+          <HexGrid cells={cells} gridSize={gridSize} loading={loading} />
         )}
         <Footer status={status} />
       </div>
