@@ -107,6 +107,18 @@
     }
   }
   //hexGrid end
+  .gameOver{
+    height: 400px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &-score {
+      font-size: 2.5em;
+    }
+  }
+
   /* main end*/
 
   /* footer */

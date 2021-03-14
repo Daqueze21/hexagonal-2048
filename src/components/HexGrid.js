@@ -16,7 +16,6 @@ function HexGrid({gridSize, cells, loading}) {
   const insideHeight = Math.sqrt(3) * insideRadius;
   const insideWidth = insideRadius * 2;
 
-  // console.log(props.cells);
 
    return (
       <div className='hexGrid-wrapper'>

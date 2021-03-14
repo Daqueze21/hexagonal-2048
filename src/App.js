@@ -54,21 +54,26 @@ export default class App extends Component {
   }
 
   async handleKeyDown({ keyCode }) {
-    const { cells, loading, status } = this.state;
+    const { cells, loading, status} = this.state;
 
     if (loading) {
       return;
+    }else if (status === 'init-game'){
+      return;
     }
+      //keyboard logic
+      const localUpdatedCells = calculateLocalChanges(cells, keyCode);
 
-    //keyboard logic
-    const localUpdatedCells = calculateLocalChanges(
-      cells,
-      keyCode
-    );
-    // const scoreCounter = calculatePoints(cells, localUpdatedCells);
-    console.log('values', localUpdatedCells);
     if (!localUpdatedCells) {
       return;
+    } else if (
+      isEqualArrays(cells, localUpdatedCells) &&
+      localUpdatedCells.every((elem) => elem.value !==0)
+    ) {
+      this.setState({
+        loading: false,
+        status: 'game-over',
+      });
     } else if (isEqualArrays(cells, localUpdatedCells)) {
       return;
     } else {
@@ -76,31 +81,20 @@ export default class App extends Component {
 
       this.setState({ cells: localUpdatedCells, loading: true, score: score });
 
+      // TODO: game over logic not fully ready
       try {
-        // const filteredCells = cells.filter((cell) => cell.value !== 0);
         const filteredCells = localUpdatedCells.filter(
           (cell) => cell.value !== 0
         );
-        // TODO: game over logic not ready
 
         const cellsWithValues = await getCellsWithValues(
           this.state.gridSize,
           filteredCells
         );
-        //
         const updatedCells = populateGridWithNewValues(
           localUpdatedCells,
           cellsWithValues
         );
-        console.log('cells', cellsWithValues.length);
-
-        if (cellsWithValues.length === 0) {
-          this.setState({
-            cells: updatedCells,
-            loading: false,
-            status: 'game-over',
-          });
-        }
 
         this.setState({ cells: updatedCells, loading: false });
       } catch (error) {
@@ -115,16 +109,36 @@ export default class App extends Component {
     return (
       <div className='App'>
         <Header score={score} handleClick={this.handleHeaderButtonsClick} />
-        {!cells ? (
-          <div className='previewBlock'>
-            <h1>Hexagonal 2048</h1>
-            <h4>Push button with number to start the game</h4>
-          </div>
-        ) : (
-          <HexGrid cells={cells} gridSize={gridSize} loading={loading} />
-        )}
+        {status==='game-over'?
+          (<GameOver score = {score}/>) :
+          !cells ? (
+            <PreviewBlock />
+          ) : (
+            <HexGrid cells={cells} gridSize={gridSize} loading={loading} />
+          )
+        }
+
         <Footer status={status} />
       </div>
     );
   }
+};
+
+
+const PreviewBlock = () => {
+  return (
+    <div className='previewBlock'>
+      <h1>Hexagonal 2048</h1>
+      <h4>Push button with number to start the game</h4>
+    </div>
+  )
+}
+
+const GameOver = ({score}) => {
+  return (
+    <div className='gameOver'>
+      <h3>Your Score:</h3>
+      <div className='gameOver-score'>{score}</div>
+    </div>
+  );
 };

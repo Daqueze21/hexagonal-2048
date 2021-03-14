@@ -1,5 +1,5 @@
 import React from 'react';
-import { getColors } from '../lib/utils';
+// import { getColors } from '../lib/utils';
 
 export default function Hex({
   size,
@@ -7,19 +7,19 @@ export default function Hex({
   cell,
   translateX,
   translateY,
-  insideHeight,
-  insideWidth,
+//   insideHeight,
+//   insideWidth,
 }) {
   let styles = {
     width: size,
     height: size,
     transform: `translate(${translateX}px, ${translateY}px)`,
   };
-  let insideBlockStyles = {
-    width: insideWidth,
-    height: insideHeight,
-    backgroundColor: getColors(cell.value),
-  };
+//   let insideBlockStyles = {
+//     width: insideWidth,
+//     height: insideHeight,
+//     backgroundColor: getColors(cell.value),
+//   };
   
   return (
     <div

@@ -72,7 +72,6 @@ const evaluateNewLineValueSize = (line, reversedDirection, axisForSort) => {
       (a, b) => a[axisForSort] - b[axisForSort]
    );
    
-   // console.log('lineCopy', lineCopy);
    //remove 0
    let numbers = [];
    lineCopy.forEach((num) => {
@@ -92,7 +91,7 @@ const evaluateNewLineValueSize = (line, reversedDirection, axisForSort) => {
          }
          return obj;
       });
-      // console.log(updatedLine);
+      
    } else {
       sumNeighbors = numbers.reduce(reducer, []);
 
