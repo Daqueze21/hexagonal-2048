@@ -61,7 +61,7 @@ const getDirectionLines = (cells, axis) => {
 
 export const evaluateMove = (cells, axis, isMainDirection, sortByAxis) => {
    const lineMap = getDirectionLines(cells, axis);
-   // console.log(axis, lineMap);
+   
    return Object.values(lineMap)
       .map((line) => evaluateNewLineValueSize(line, isMainDirection, sortByAxis))
       .reduce((acc, current) => acc.concat(current), []);
@@ -71,7 +71,7 @@ const evaluateNewLineValueSize = (line, reversedDirection, axisForSort) => {
    let lineCopy = JSON.parse(JSON.stringify(line)).sort(
       (a, b) => a[axisForSort] - b[axisForSort]
    );
-
+   
    // console.log('lineCopy', lineCopy);
    //remove 0
    let numbers = [];
@@ -80,7 +80,6 @@ const evaluateNewLineValueSize = (line, reversedDirection, axisForSort) => {
    });
 
    let sumNeighbors, updatedLine;
-
    // sum naighbors and change values
    if (reversedDirection) {
       sumNeighbors = numbers.reverse().reduce(reducer, []);
@@ -110,10 +109,16 @@ const evaluateNewLineValueSize = (line, reversedDirection, axisForSort) => {
    return updatedLine;
 };
 
+
 const reducer = (acc, value, i, source) => {
-   acc[acc.length - 1] === value && source[i - 1] === value
-      ? (acc[acc.length - 1] = value * 2)
-      : acc.push(value);
+   if (acc[acc.length - 1] === value && source[i - 1] === value) {
+      const score = JSON.parse(localStorage.getItem('score'));
+      localStorage.setItem('score', score + (value * 2));
+      acc[acc.length - 1] = value * 2;
+      
+   } else {
+      acc.push(value);
+   }
    return acc;
 };
 
@@ -138,3 +143,32 @@ export const calculateLocalChanges = (cells, keyCode) => {
 };
 
 //TODO: add score counter
+
+export const getColors = (num) => {
+   switch (num) {
+      case 2:
+         return '#EBDCD0';
+      case 4:
+         return '#E9DBBA';
+      case 8:
+         return '#E9A067';
+      case 16:
+         return '#F08151';
+      case 32:
+         return '#F2654F';
+      case 64:
+         return '#F1462C';
+      case 128:
+         return '#E7C65E';
+      case 256:
+         return '#E8C350';
+      case 512:
+         return '#E8BE40';
+      case 1024:
+         return '#E8BB31';
+      case 2048:
+         return '#E7B723';
+      default:
+         return '#C2B3A3';
+   }
+};

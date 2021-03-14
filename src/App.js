@@ -43,7 +43,7 @@ export default class App extends Component {
       generateHexagonMapByRadius(radius - 1),
       cellsWithValues
     );
-
+    localStorage.setItem('score', 0);  
     this.setState(() => ({
       score: 0,
       cells: updatedCells,
@@ -55,21 +55,26 @@ export default class App extends Component {
 
   async handleKeyDown({ keyCode }) {
     const { cells, loading, status } = this.state;
-    
+
     if (loading) {
       return;
-    };
-    
+    }
+
     //keyboard logic
-    const localUpdatedCells = calculateLocalChanges(cells, keyCode);
+    const localUpdatedCells = calculateLocalChanges(
+      cells,
+      keyCode
+    );
+    // const scoreCounter = calculatePoints(cells, localUpdatedCells);
+    console.log('values', localUpdatedCells);
     if (!localUpdatedCells) {
       return;
-    }else if (
-      isEqualArrays(cells, localUpdatedCells)
-    ) {
+    } else if (isEqualArrays(cells, localUpdatedCells)) {
       return;
     } else {
-      this.setState({ cells: localUpdatedCells, loading: true });
+      const score = JSON.parse(localStorage.getItem('score'));
+
+      this.setState({ cells: localUpdatedCells, loading: true, score: score });
 
       try {
         // const filteredCells = cells.filter((cell) => cell.value !== 0);
@@ -103,7 +108,6 @@ export default class App extends Component {
         this.setState({ loading: false, status: 'game-over' });
       }
     }
-      
   }
 
   render() {
