@@ -43,7 +43,7 @@ export default class App extends Component {
       generateHexagonMapByRadius(radius - 1),
       cellsWithValues
     );
-    localStorage.setItem('score', 0);  
+    localStorage.setItem('score', 0);
     this.setState(() => ({
       score: 0,
       cells: updatedCells,
@@ -81,7 +81,6 @@ export default class App extends Component {
 
       this.setState({ cells: localUpdatedCells, loading: true, score: score });
 
-      // TODO: game over logic not fully ready
       try {
         const filteredCells = localUpdatedCells.filter(
           (cell) => cell.value !== 0

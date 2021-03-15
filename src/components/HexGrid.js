@@ -13,10 +13,6 @@ function HexGrid({gridSize, cells, loading}) {
    let translateX = 0;
    let translateY = 0;
 
-  const insideHeight = Math.sqrt(3) * insideRadius;
-  const insideWidth = insideRadius * 2;
-
-
    return (
       <div className='hexGrid-wrapper'>
          {loading && <h4>Loading...</h4>}
@@ -32,8 +28,6 @@ function HexGrid({gridSize, cells, loading}) {
                   translateX={translateX}
                   translateY={translateY}
                   size={blockSize}
-                  insideHeight={insideHeight}
-                  insideWidth={insideWidth}
                />
             );
          })}

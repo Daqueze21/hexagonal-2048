@@ -1,4 +1,4 @@
-// TODO: hexagon map generator
+// hexagon map generator
 export const generateHexagonMapByRadius = (radius) => {
    let hexagonMap = [];
 
@@ -14,7 +14,6 @@ export const generateHexagonMapByRadius = (radius) => {
    return hexagonMap;
 };
 
-//TODO: func to fill cells map with values from server 
 //find cell for changing
 const findCellByCoords = (cell, grid) => {
    return grid.find(gridCell => gridCell.x === cell.x && gridCell.y === cell.y && gridCell.z === cell.z);
@@ -42,15 +41,11 @@ export const isEqualArrays = (arr1, arr2) => {
    return a1.every((item) => a2.includes(item));
 };
 
-//TODO: keydown handler
-//TODO: handle move => calculate new values(evaluete is still playing..) => send new grid values to BE => redraw with BE values
-
 //group gridMap by direction
 const getDirectionLines = (cells, axis) => {
    const lines = {};
 
    cells.forEach((cell) => {
-      // const currentAxisValue = cell[axis];
       lines[cell[axis]] = lines[cell[axis]]
          ? [...lines[cell[axis]], cell]
          : [cell];
@@ -72,13 +67,13 @@ const evaluateNewLineValueSize = (line, reversedDirection, axisForSort) => {
       (a, b) => a[axisForSort] - b[axisForSort]
    );
    
-   //remove 0
    let numbers = [];
    lineCopy.forEach((num) => {
       if (num.value) numbers.push(num.value);
    });
 
    let sumNeighbors, updatedLine;
+
    // sum naighbors and change values
    if (reversedDirection) {
       sumNeighbors = numbers.reverse().reduce(reducer, []);
@@ -141,33 +136,3 @@ export const calculateLocalChanges = (cells, keyCode) => {
    }
 };
 
-//TODO: add score counter
-
-export const getColors = (num) => {
-   switch (num) {
-      case 2:
-         return '#EBDCD0';
-      case 4:
-         return '#E9DBBA';
-      case 8:
-         return '#E9A067';
-      case 16:
-         return '#F08151';
-      case 32:
-         return '#F2654F';
-      case 64:
-         return '#F1462C';
-      case 128:
-         return '#E7C65E';
-      case 256:
-         return '#E8C350';
-      case 512:
-         return '#E8BE40';
-      case 1024:
-         return '#E8BB31';
-      case 2048:
-         return '#E7B723';
-      default:
-         return '#C2B3A3';
-   }
-};
