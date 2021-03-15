@@ -58,7 +58,7 @@ export default class App extends Component {
 
     if (loading) {
       return;
-    }else if (status === 'init-game'){
+    }else if (status === 'init-game' || status === 'game-over') {
       return;
     }
       //keyboard logic

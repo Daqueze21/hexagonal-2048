@@ -6,8 +6,8 @@ export const getCellsWithValues = async (gridSize, filledCells) => {
 
    try {
       const response = await fetch(
-         `http://51.15.207.127:13337/${gridSize}`,
-         requestOptions
+        `//68f02c80-3bed-4e10-a747-4ff774ae905a.pub.instances.scw.cloud/${gridSize}`,
+        requestOptions
       ).then((resp) => resp.json());
 
       return response;
