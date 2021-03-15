@@ -1,4 +1,16 @@
-# Getting Started with Create React App
+# 2048 Hexagonal
+
+## Task
+
+<https://github.com/evolution-gaming/typescript-bootcamp/tree/main/assigment/hex2048>
+
+### Deploy project link
+
+<https://2048-hexagonal-reactapp-daqueze21.netlify.app/>
+
+Use q, w, e, a, s, d keys on keyboard for moves;
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
