@@ -136,3 +136,20 @@ export const calculateLocalChanges = (cells, keyCode) => {
    }
 };
 
+//game ending check
+const hasMovesLeft = (cells, axis, direction, axisForSort) => {
+   const possibleResult = evaluateMove(cells, axis, direction, axisForSort);
+
+   return !isEqualArrays(cells, possibleResult);
+};
+
+export const areMovesLeft = (cells) => {
+   return (
+      hasMovesLeft(cells, 'z', false, 'x') ||
+      hasMovesLeft(cells, 'x', true, 'y') ||
+      hasMovesLeft(cells, 'y', true, 'x') ||
+      hasMovesLeft(cells, 'y', false, 'x') ||
+      hasMovesLeft(cells, 'x', false, 'y') ||
+      hasMovesLeft(cells, 'z', true, 'x')
+   );
+};

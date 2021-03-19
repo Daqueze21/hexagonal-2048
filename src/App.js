@@ -9,6 +9,7 @@ import {
   populateGridWithNewValues,
   calculateLocalChanges,
   isEqualArrays,
+  areMovesLeft,
 } from './lib/utils';
 
 export default class App extends Component {
@@ -67,8 +68,8 @@ export default class App extends Component {
     if (!localUpdatedCells) {
       return;
     } else if (
-      isEqualArrays(cells, localUpdatedCells) &&
-      localUpdatedCells.every((elem) => elem.value !==0)
+      localUpdatedCells.every((elem) => elem.value !== 0) &&
+      !areMovesLeft(localUpdatedCells)
     ) {
       this.setState({
         loading: false,
