@@ -12,27 +12,34 @@
       font-size: 50px;
       margin: 0;
     }
+
     .buttons-wrapper{
-      display: flex;
-      justify-content:center;
+	    display: flex;
+      justify-content: center;
       align-items: center;
 
-      button {
-        height: 20px;
-        margin: 0 10px;
-        background: #222;
-        min-width: 30px;
-        border: none;
-        border-radius: 6px;
-        color: #eee;
-        font-size: 15px;
-        transition: 1s;
-        -webkit-tap-highlight-color: transparent;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-      }
+        a {
+          padding: 3px 1px;
+          margin: 0 10px;
+          background: #bbada0;
+          min-width: 30px;
+          border: none;
+          border-radius: 6px;
+          color: #fff;
+          font-size: 15px;
+          transition: 1s;
+          -webkit-tap-highlight-color: transparent;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          text-decoration: none;
+          font-weight: bold;
+        }
+
+        .selected {
+          background: #E7B723;
+        }
     }
 
     .score-container {
@@ -93,6 +100,13 @@
       align-items: center;
       flex-wrap: wrap;
       background: url(./img/hex.svg) center center no-repeat;
+
+      .hex {
+        cursor: pointer;
+        fill-opacity: 0.4;
+        stroke: #000;
+        stroke-width: 1;
+      }
     }
 
     .insideRadius {

@@ -1,33 +1,34 @@
 import React from 'react';
+import { withRouter } from 'react-router';
+import { NavLink, useLocation } from 'react-router-dom';
 
-export default function Header({ score, handleClick }) {
+ function Header({ score }) {
+   let location = useLocation();
    return (
       <div className='header'>
          <h1 className='title'>2048</h1>
-         <div className='buttons-wrapper'>
-            <button
-               onClick={() => {
-                  handleClick(2);
-               }}>
+         <nav className='buttons-wrapper'>
+            <NavLink
+               activeClassName={location.hash !== '#test2' ? null : 'selected'}
+               to='/#test2'>
                2
-            </button>
-            <button
-               onClick={() => {
-                  handleClick(3);
-               }}>
-               3
-            </button>
-            <button
-               onClick={() => {
-                  handleClick(4);
-               }}>
-               4
-            </button>
-         </div>
+            </NavLink>
 
-         <div className='score-container'>
-            {score}
-         </div>
+            <NavLink
+               activeClassName={location.hash !== '#test3' ? null : 'selected'}
+               to='/#test3'>
+               3
+            </NavLink>
+
+            <NavLink
+               activeClassName={location.hash !== '#test4' ? null : 'selected'}
+               to='/#test4'>
+               4
+            </NavLink>
+         </nav>
+
+         <div className='score-container'>{score}</div>
       </div>
    );
 };
+export default withRouter(Header);

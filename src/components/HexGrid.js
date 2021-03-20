@@ -3,9 +3,10 @@ import Hexagon from './Hexagon';
 
 function HexGrid({gridSize, cells, loading}) {
    let outsideRadius = 32;
-   if (gridSize === 2) {
+
+   if (gridSize === '2') {
       outsideRadius *= 2.3;
-   } else if (gridSize === 3) {
+   } else if (gridSize === '3') {
       outsideRadius *= 1.5;
    }
    const insideRadius = (Math.sqrt(3) / 2) * outsideRadius + 3;
